@@ -1,0 +1,163 @@
+# Welcome to Serverless!
+#
+# This file is the main config file for your service.
+# It's very minimal at this point and uses default values.
+# You can always add more config options for more control.
+# We've included some commented out config examples here.
+# Just uncomment any of them to get that config option.
+#
+# For full config options, check the docs:
+#    docs.serverless.com
+#
+# Happy Coding!
+
+service: shoppinglist-middleware
+# app and org for use with dashboard.serverless.com
+#app: your-app-name
+#org: your-org-name
+
+custom:
+  userTableName: sl-users
+  listsTableName: sl-lists
+  itemsTableName: sl-items
+  userListsTableName: sl-userlists
+  refreshTokensTableName: sl-refreshTokens
+
+plugins:
+  - serverless-offline
+
+# You can pin your service to only deploy with a specific Serverless version
+# Check out our docs for more details
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  lambdaHashingVersion: 20201221
+  environment:
+    userTableName: ${self:custom.userTableName}
+    itemsTableName: ${self:custom.itemsTableName}
+    userListsTableName: ${self:custom.userListsTableName}
+    listsTableName: ${self:custom.listsTableName}
+    refreshTokensTableName: ${self:custom.refreshTokensTableName}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:*
+      Resource: "*"
+    - Effect: Allow
+      Action:
+        - ssm:GetParameter
+      Resource: "*"
+
+functions:
+  lists:
+    handler: lists/listItems.handler
+    events:
+      - http:
+         path: /items
+         method: POST
+         cors: true
+      - http:
+         path: /additem
+         method: POST
+         cors: true
+      - http:
+         path: /sharelist
+         method: POST
+         cors: true
+  login:
+    handler: auth/auth.login
+    events:
+      - http:
+         path: /login
+         method: POST
+         cors: true
+  signup:
+    handler: auth/auth.signup
+    events:
+      - http:
+         path: /signup
+         method: POST
+         cors: true
+  logout:
+    handler: auth/auth.logout
+    events:
+      - http:
+         path: /logout
+         method: POST
+         cors: true
+
+resources:
+  Resources:
+    UserTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:custom.userTableName}
+        AttributeDefinitions:
+          - AttributeName: userName
+            AttributeType: S
+        KeySchema:
+          - AttributeName: userName
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+    ItemsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:custom.itemsTableName}
+        AttributeDefinitions:
+          - AttributeName: userName
+            AttributeType: S
+          - AttributeName: itemName
+            AttributeType: S
+        KeySchema:
+          - AttributeName: userName
+            KeyType: HASH
+          - AttributeName: itemName
+            KeyType: RANGE
+        BillingMode: PAY_PER_REQUEST
+    RefreshTokensTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:custom.refreshTokensTableName}
+        AttributeDefinitions:
+          - AttributeName: refreshToken
+            AttributeType: S
+        KeySchema:
+          - AttributeName: refreshToken
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+    UserListsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:custom.userListsTableName}
+        AttributeDefinitions:
+          - AttributeName: userName
+            AttributeType: S
+        KeySchema:
+          - AttributeName: userName
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+    ListsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:custom.listsTableName}
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+
+# you can add CloudFormation resource templates here
+#resources:
+#  Resources:
+#    NewResource:
+#      Type: AWS::S3::Bucket
+#      Properties:
+#        BucketName: my-new-bucket
+#  Outputs:
+#     NewOutput:
+#       Description: "Description for the output"
+#       Value: "Some output value"
