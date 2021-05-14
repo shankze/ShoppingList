@@ -1,0 +1,72 @@
+.edit-icon{
+  transform: scale(0.7);
+}
+
+.edit-cell{
+  padding-bottom: 20px;
+}
+
+.item-edit-button{
+  padding: 0.5rem 0.5rem !important;
+}
+
+.mat-card-title  {
+    font-size: 18px;
+  }
+  
+.add-item-accordian{
+  margin-bottom: 20px;
+}
+
+.card-full-width{
+  width: 400px !important;
+}
+
+.card-half-width{
+  width: auto;
+}
+
+  .mat-card {
+    margin-bottom: 10px;
+    width: auto;
+  }
+  
+  .card-completed-items{
+    height: 25px;
+    padding-top: 2px;
+  }
+
+  .product-card {
+    margin-bottom: 15px;
+  }
+  .edit-icon {
+    cursor: pointer;
+  }
+  .invisible {
+    display: none;
+  }
+  .save-btn  {
+    margin-left: 10px;
+  }
+  .section-title {
+    margin-bottom: 30px;
+  }
+  .editname-form-container {
+    min-height: 65px;
+  }
+  .mat-raised-button {
+    margin-top:10px;
+  }
+
+  .mat-form-field {
+    margin-right: 20px;
+  }
+
+  #add-item-button{
+    margin-right: 10px;
+    height: 40px;
+  }
+
+  .mat-expansion-panel-header{
+    height: 90px;;
+  }

@@ -1,0 +1,18 @@
+<form class="example-form">
+    <span>Share this list with others. Enter e-mail address of the user you want to share the list with</span>
+    <div>
+        <mat-form-field class="example-full-width">
+            <mat-label>Email</mat-label>
+            <input type="email" matInput [formControl]="emailFormControl" placeholder="Ex. pat@example.com">
+            <mat-hint></mat-hint>
+            <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                Please enter a valid email address
+            </mat-error>
+            <mat-error *ngIf="emailFormControl.hasError('required')">
+                Email is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+    </div>
+</form>
+<button mat-raised-button (click)="shareList()">Share</button>
+<button mat-raised-button (click)="back()">Back</button>

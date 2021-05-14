@@ -1,0 +1,151 @@
+<div class="add-item-accordian">
+    <form class="example-form">
+<mat-accordion>
+    <!-- #docregion basic-panel -->
+    <!-- #docregion hide-toggle -->
+      <mat-expansion-panel hideToggle>
+        
+    <!-- #enddocregion hide-toggle -->
+        <mat-expansion-panel-header>
+            
+          <mat-panel-title>
+            
+            <div>
+                <mat-form-field>
+                    <mat-label>Item</mat-label>
+                    <input class="card-full-width" type="text" placeholder="Pick one" aria-label="Number" matInput
+                        [formControl]="itemNameControl" [matAutocomplete]="auto">
+                    <mat-autocomplete #auto="matAutocomplete">
+                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                            {{option}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+
+            </div>
+          </mat-panel-title>
+          <mat-panel-description>
+            <button mat-raised-button id="add-item-button" color="primary" (click)="addItem()">Add</button>
+            <button mat-icon-button color="primary" (click)="expandAddSection()"><mat-icon>menu</mat-icon></button>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        
+           
+            <div>
+                <mat-form-field class="card-half-width">
+                    <mat-label>Category</mat-label>
+                    <input matInput [(ngModel)]="category" name="category">
+                </mat-form-field>
+
+                <mat-form-field class="card-half-width">
+                    <mat-label>Store</mat-label>
+                    <input matInput [(ngModel)]="store" name="store">
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field class="card-half-width">
+                    <mat-label>Quantity</mat-label>
+                    <input matInput [(ngModel)]="quantity" name="store">
+                </mat-form-field>
+                <mat-form-field class="card-half-width">
+                    <mat-label>Assignee</mat-label>
+                    <input matInput [(ngModel)]="assignee" name="store">
+                </mat-form-field>
+            </div>
+            <!--<button mat-raised-button (click)="addItem()">Add</button>-->
+        
+      </mat-expansion-panel>
+</mat-accordion>
+</form>
+</div>
+
+<!--
+<mat-card>
+    <mat-card-title>Add Item</mat-card-title>
+    <mat-card-content>
+        <form class="example-form">
+            <div>
+                <mat-form-field>
+                    <mat-label>Item</mat-label>
+                    <input class="card-full-width" type="text" placeholder="Pick one" aria-label="Number" matInput
+                        [formControl]="itemNameControl" [matAutocomplete]="auto">
+                    <mat-autocomplete #auto="matAutocomplete">
+                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                            {{option}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field class="card-half-width">
+                    <mat-label>Category</mat-label>
+                    <input matInput [(ngModel)]="category" name="category">
+                </mat-form-field>
+
+                <mat-form-field class="card-half-width">
+                    <mat-label>Store</mat-label>
+                    <input matInput [(ngModel)]="store" name="store">
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field class="card-half-width">
+                    <mat-label>Quantity</mat-label>
+                    <input matInput [(ngModel)]="quantity" name="store">
+                </mat-form-field>
+                <mat-form-field class="card-half-width">
+                    <mat-label>Assignee</mat-label>
+                    <input matInput [(ngModel)]="assignee" name="store">
+                </mat-form-field>
+            </div>
+            <button mat-raised-button (click)="addItem()">Add</button>
+        </form>
+    </mat-card-content>
+</mat-card>
+-->
+Open Items
+<div *ngIf="selectedList">
+    <div *ngFor="let item of selectedList.items">
+    <mat-card *ngIf="item.status===false">
+        <!--<mat-card-title>{{item.name}}</mat-card-title>-->
+        <mat-card-content>
+            <div class="container">
+                <div class="row">
+                    <div class="col-6">{{item.name}}</div>
+                    <div class="col-2"><mat-checkbox class="example-margin" [(ngModel)]="item.status" (change)="checkItem($event)"></mat-checkbox></div>
+                    <!--<div class="col-2"><button class="item-edit-button" *ngIf="item.status === false" (click)="checkItem(item)" mat-button><mat-icon class="edit-icon">edit</mat-icon></button></div>-->
+                    <!--<div class="col-4 edit-cell"><button mat-raised-button class="item-edit-button" *ngIf="item.status === false" (click)="checkItem(item)">Edit</button> </div>-->
+                    <!--<div class="col-1"><button type="button" class="btn btn-outline-secondary btn-l">Edit</button></div>-->
+                </div>
+                <div class="row">
+                    <div class="col-4">{{item.category}}</div>
+                    <div class="col-4">
+                        <div *ngIf="item.store == 'HEB'">
+                            Store: {{item.store}}
+                        </div>
+                    </div>
+                    <div class="col-4">Quantity: {{item.quantity}}</div>
+                </div>
+                <div class="row">
+                    
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>
+</div>
+Completed Items
+<div *ngIf="selectedList">
+    <div *ngFor="let item of selectedList.items">
+        <mat-card class="card-completed-items" *ngIf="item.status === true">
+            <!--<mat-card-title>{{item.name}}</mat-card-title>-->
+            <mat-card-content>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-8">{{item.name}}</div>
+                        <div class="col-4"><mat-checkbox [(ngModel)]="item.status" (change)="checkItem($event)"></mat-checkbox></div>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

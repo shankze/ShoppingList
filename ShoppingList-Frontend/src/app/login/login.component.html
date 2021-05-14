@@ -1,0 +1,35 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-4">
+                <div *ngIf="pageContainsAlert === true" class="alert alert-primary" role="alert">{{alertText}}</div>
+                <form role="form">
+                    <div class="form-group">
+                         
+                        <label for="exampleInputEmail1">
+                            Username
+                        </label>
+                        <input [(ngModel)]="userName" name="userName" class="form-control" id="exampleInputEmail1" />
+                    </div>
+                    <div class="form-group">
+                         
+                        <label for="exampleInputPassword1">
+                            Password
+                        </label>
+                        <input [(ngModel)]="password" name="password" type="password" class="form-control" id="exampleInputPassword1" />
+                    </div>
+                    <div class="form-group">
+                    </div>
+                    <button (click)="processLogin()" class="btn btn-primary">
+                        Submit
+                    </button>
+                </form>
+                <a class="nav-link" [routerLink]="['/signup']" routerLinkActive="router-link-active" >New user signup</a>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+</div>
