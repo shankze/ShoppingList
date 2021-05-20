@@ -6,9 +6,7 @@ const getParameterFromParameterStore = async (parameterName) => {
         Name: parameterName,
         WithDecryption: false
     };
-
     const response = await ssm.getParameter(params).promise();
-    console.log(response)
     return response.Parameter.Value
 }
 

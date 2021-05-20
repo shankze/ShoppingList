@@ -43,7 +43,7 @@ const Dynamo = {
       }
     };
     const data = await documentClient.query(params).promise();
-    console.log(data);
+    console.log('Items returned: ',data);
     if (data == null || data.Items == null) {
       return null;
     }
@@ -56,11 +56,9 @@ const Dynamo = {
       Key: { userName, },
     };
     const data = await documentClient.get(params).promise();
-    console.log(data);
     if (!data || !data.Item) {
       return null;
     }
-    console.log(data);
     return data.Item;
   },
 

@@ -1,4 +1,15 @@
-<div class="container-fluid">
+<div *ngIf="numberOfLists == 0">
+  You do not have any lists. Do you want to create one?
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>Favorite food</mat-label>
+      <input matInput placeholder="Ex. Pizza" value="Sushi">
+    </mat-form-field>
+  </form>
+  <button mat-button (click)="createList()">Create List</button>
+</div>
+
+<div *ngIf="numberOfLists > 0" class="container-fluid">
   <div class="row">
     <div class="col-7">
       <mat-form-field appearance="fill">
@@ -10,10 +21,19 @@
         </mat-select>
       </mat-form-field>
     </div>
-    <div class="col-1"></div> 
-    <div class="col-1"><button mat-button (click)="shareList()">S</button></div>
+    <div class="col-3"></div>
+    <!--<div class="col-1"><button mat-button (click)="shareList()">S</button></div>
     <div class="col-1"></div>
-    <div class="col-1">d</div>
+    <div class="col-1"><button mat-button (click)="createList()">C</button></div>-->
+    <div class="col-1">
+      <button mat-icon-button [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon></button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="shareList()">Share</button>
+        <button mat-menu-item (click)="deleteList()">Delete</button>
+        <button mat-menu-item (click)="clearList()">Clear</button>
+        <button mat-menu-item (click)="createList()">Create New</button>
+      </mat-menu>
+    </div>
   </div>
+  <app-list-items [selectedList]="selectedListObject"></app-list-items>
 </div>
-<app-list-items [selectedList]="selectedListObject"></app-list-items>

@@ -13,8 +13,18 @@ export class ListsService {
 
   private endpointURL = 'https://hudzi27wa7.execute-api.us-east-1.amazonaws.com/dev/';
 
+  createList(listName):Observable<any>{
+    //let userName = localStorage.getItem('currentUser');
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post<any>(this.endpointURL + 'createlist', {listName}, { headers })
+    .pipe(
+      tap(data => console.log('response: ' + JSON.stringify(data))),
+      catchError(this.handleError)
+    );
+  }
+
   shareList(email,listId):Observable<any>{
-    let userName = localStorage.getItem('currentUser');
+    //let userName = localStorage.getItem('currentUser');
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post<any>(this.endpointURL + 'sharelist', {email,listId}, { headers })
     .pipe(

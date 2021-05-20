@@ -29,6 +29,9 @@ import { MatButtonModule } from '@angular/material/button'
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { ListShareComponent } from './list-share/list-share.component';
+import { CreateListComponent } from './create-list/create-list.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatMenuModule} from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -39,6 +42,7 @@ import { ListShareComponent } from './list-share/list-share.component';
     SignupComponent,
     ListItemsComponent,
     ListShareComponent,
+    CreateListComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,6 +66,9 @@ import { ListShareComponent } from './list-share/list-share.component';
     MatButtonModule,
     MatCheckboxModule,
     MatExpansionModule,
+    MatDialogModule,
+    MatMenuModule,
+    
   ],
   exports:[
   ],

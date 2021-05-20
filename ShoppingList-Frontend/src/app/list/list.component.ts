@@ -4,6 +4,8 @@ import { ListItem, ShoppingList, ShoppingLists } from '../objects';
 import { ListsService } from '../services/lists.service';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import { ActivatedRoute,Router } from '@angular/router';
+import {MatDialog} from '@angular/material/dialog';
+import { CreateListComponent } from '../create-list/create-list.component';
 
 @Component({
   selector: 'app-list',
@@ -18,8 +20,9 @@ export class ListComponent implements OnInit {
   errorMessage: string = '';
   listNames:string[];
   previouslySelectedListId:string;
+  numberOfLists:number;
   
-  constructor(private listService: ListsService, private router:Router,private activatedRoute:ActivatedRoute) { }
+  constructor(private listService: ListsService, private router:Router,private activatedRoute:ActivatedRoute, private dialog: MatDialog) { }
 
   onListSelectChange(event){
     console.log(event.value)
@@ -45,9 +48,27 @@ export class ListComponent implements OnInit {
     this.router.navigate(['/sharelist'],{queryParams:{listId:this.selectedListObject.id}});
   }
 
+  createList(){
+    this.router.navigate(['/createlist'])
+  }
+
+  deleteList(){
+    //this.router.navigate(['/createlist'])
+  }
+
+  clearList(){
+    //this.router.navigate(['/createlist'])
+  }
+
+
   processReturnedLists(data){
-    this.lists = data['Responses']['sl-lists'];
-    if(this.previouslySelectedListId){
+    this.lists = data;
+    this.numberOfLists = this.lists.length
+    console.log('Number of lists: ',this.numberOfLists)
+    if(this.numberOfLists == 0){
+
+    }
+    else if(this.previouslySelectedListId){
       console.log('Setting previously selected Id')
       this.selectedList = this.previouslySelectedListId;
       this.selectedListObject = this.lists.find(({id}) =>id===this.previouslySelectedListId);

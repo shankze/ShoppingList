@@ -63,6 +63,10 @@ functions:
          method: POST
          cors: true
       - http:
+         path: /createlist
+         method: POST
+         cors: true
+      - http:
          path: /sharelist
          method: POST
          cors: true
