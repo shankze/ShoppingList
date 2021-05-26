@@ -13,6 +13,15 @@ export class ListsService {
 
   private endpointURL = 'https://hudzi27wa7.execute-api.us-east-1.amazonaws.com/dev/';
 
+  clearList(listId):Observable<any>{
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post<any>(this.endpointURL + 'clearlist', {listId}, { headers })
+    .pipe(
+      tap(data => console.log('response: ' + JSON.stringify(data))),
+      catchError(this.handleError)
+    );
+  }
+
   createList(listName):Observable<any>{
     //let userName = localStorage.getItem('currentUser');
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });

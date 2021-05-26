@@ -6,18 +6,13 @@ const ssmHelper = require('../helpers/ssmhelper')
 //const uuidv4 = require("uuidv4")
 const {v4:uuidv4} = require('uuid')
 
-let items = [
-  {name:"Onion", section:"Indian",status:false,user:'aaa'},
-  {name:"Tomato", section:"Indian",status:false,user:'aaa'},
-  {name:"Peanuts", section:"Indian",status:false,user:'aaa'},
-]
-
 const itemsTableName = process.env.itemsTableName;
 const listsTableName = process.env.listsTableName;
 const userListsTableName = process.env.userListsTableName;
 
 const handler = async (event) => {
   console.log(event)
+  console.log('Here-----------------------------1')
   const authHeader = event.headers['Authorization']
   const token = authHeader && authHeader.split(' ')[1]  
   if(token==null){
@@ -58,9 +53,17 @@ const handler = async (event) => {
   }
   if(event.path === "/clearlist")
   {
+    console.log('Here-----------------------------2')
     return await clearList(event.body)
   }
 }
+
+/*
+      UpdateExpression: "set #it = :itemsList,  updateTime= :updateTime",
+      ExpressionAttributeNames:{
+        "#it": "items",  //items is reserved
+      },
+*/
 
 const clearList = async (body) => {
   const newItemInfo = JSON.parse(body)
@@ -69,9 +72,12 @@ const clearList = async (body) => {
   const params = {
     TableName: listsTableName,
     Key: { id: listId, },
-    UpdateExpression: "set items = :itemsvalue, updateTime= :updateTime",
+    UpdateExpression: "set #it = :itemsList, updateTime= :updateTime",
+    ExpressionAttributeNames:{
+      "#it": "items",  //items is reserved
+    },
     ExpressionAttributeValues: {
-      ":itemsvalue": [],
+      ":itemsList": [],
       ":updateTime": currentTime.toString(),
     },
     ReturnValues: "NONE"

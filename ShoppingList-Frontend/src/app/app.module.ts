@@ -32,6 +32,7 @@ import { ListShareComponent } from './list-share/list-share.component';
 import { CreateListComponent } from './create-list/create-list.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatMenuModule} from '@angular/material/menu';
+import { ListClearComponent } from './list-clear/list-clear.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import {MatMenuModule} from '@angular/material/menu';
     ListItemsComponent,
     ListShareComponent,
     CreateListComponent,
+    ListClearComponent,
   ],
   imports: [
     BrowserModule,

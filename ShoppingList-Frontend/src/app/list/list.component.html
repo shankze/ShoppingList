@@ -35,5 +35,5 @@
       </mat-menu>
     </div>
   </div>
-  <app-list-items [selectedList]="selectedListObject"></app-list-items>
+  <app-list-items (notifyAddItem)="notifyItemAddedToList($event)" [selectedList]="selectedListObject"></app-list-items>
 </div>

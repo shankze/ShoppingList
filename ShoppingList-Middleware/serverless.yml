@@ -70,6 +70,14 @@ functions:
          path: /sharelist
          method: POST
          cors: true
+      - http:
+         path: /deletelist
+         method: POST
+         cors: true
+      - http:
+         path: /clearlist
+         method: POST
+         cors: true
   login:
     handler: auth/auth.login
     events:

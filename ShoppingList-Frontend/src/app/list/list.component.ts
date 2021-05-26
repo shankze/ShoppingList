@@ -6,6 +6,7 @@ import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag
 import { ActivatedRoute,Router } from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
 import { CreateListComponent } from '../create-list/create-list.component';
+import { ListClearComponent } from '../list-clear/list-clear.component';
 
 @Component({
   selector: 'app-list',
@@ -57,9 +58,23 @@ export class ListComponent implements OnInit {
   }
 
   clearList(){
+    const dialogRef = this.dialog.open(ListClearComponent, {data:{listId:this.selectedListObject.id}});
     //this.router.navigate(['/createlist'])
+
+    dialogRef.afterClosed().subscribe(res => {
+      console.log(res)
+      if(res.action == 'clear'){
+        console.log('Here')
+        this.selectedListObject.items = []
+      }
+    })
   }
 
+  notifyItemAddedToList(updatedList:ShoppingList):void{
+    console.log('From Parent Component:')
+    console.log(updatedList)
+    this.selectedListObject = updatedList
+  }
 
   processReturnedLists(data){
     this.lists = data;

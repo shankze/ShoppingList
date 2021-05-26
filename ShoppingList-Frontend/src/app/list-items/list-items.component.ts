@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
@@ -23,6 +23,7 @@ export class ListItemsComponent implements OnInit {
   options: string[] = ['Coke', 'Milk','Beer','Bread','Cooking Oil','Cereals','Cheese','Rice','Pasta','All Purpose Flour','Butter','Eggs','Onions','Tomato','Ginger','Garlic'];
   filteredOptions: Observable<string[]>;
   addItemPanelOpenState = false;
+  @Output() notifyAddItem: EventEmitter<ShoppingList> = new EventEmitter<ShoppingList>();
   
   constructor(private listService:ListsService) { }
 
@@ -59,8 +60,10 @@ export class ListItemsComponent implements OnInit {
   }
 
   private onAddComplete(result){
+    console.log('------On add complete-----')
     console.log(result);
-    this.selectedList = result['list']
+    //this.selectedList = result['list']
+    this.notifyAddItem.emit(result['list'])
   }
 
   private _filter(value: string): string[] {

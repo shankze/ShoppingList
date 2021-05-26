@@ -23,3 +23,7 @@ export interface ShoppingList {
 export interface ShoppingLists{
     lists:ShoppingList[];
 }
+
+export interface DialogData{
+    listId: string;
+}
